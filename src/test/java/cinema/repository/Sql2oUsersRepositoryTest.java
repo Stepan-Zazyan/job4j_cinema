@@ -27,7 +27,7 @@ class Sql2oUsersRepositoryTest {
     @BeforeAll
     public static void initRepositories() throws Exception {
         var properties = new Properties();
-        try (var inputStream = Sql2oUsersRepositoryTest.class.getClassLoader().getResourceAsStream("connection.properties")) {
+        try (var inputStream = Sql2oUsersRepositoryTest.class.getClassLoader().getResourceAsStream("application.properties")) {
             properties.load(inputStream);
         }
         var url = properties.getProperty("datasource.url");

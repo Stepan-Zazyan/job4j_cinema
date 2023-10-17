@@ -46,7 +46,7 @@ public class Sql2oUsersRepository implements UsersRepository {
             Query query = connection.createQuery(sql)
                     .addParameter("email", email)
                     .addParameter("password", password);
-            Users user = query.executeAndFetchFirst(Users.class);
+            Users user = query.setColumnMappings(Users.COLUMN_MAPPING).executeAndFetchFirst(Users.class);
             return Optional.ofNullable(user);
         }
     }
