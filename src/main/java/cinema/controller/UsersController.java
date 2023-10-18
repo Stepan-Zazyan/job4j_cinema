@@ -49,7 +49,7 @@ public class UsersController {
             return "users/login";
         }
         var session = request.getSession();
-        session.setAttribute("user", userOptional.get());
+        session.setAttribute("users", userOptional.get());
         return "redirect:/films";
     }
 
