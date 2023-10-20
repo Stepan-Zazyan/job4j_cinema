@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @ThreadSafe
 @Controller
-@RequestMapping("/filmSessions") /* Работать с кандидатами будем по URI /vacancies/** */
+@RequestMapping("/filmSessions")
 public class FilmSessionsController {
     private final FilmSessionsService filmSessionsService;
 

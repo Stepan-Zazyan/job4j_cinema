@@ -3,6 +3,7 @@ package cinema.controller;
 
 import cinema.model.Tickets;
 import cinema.service.FilmSessionsService;
+import cinema.service.HallsService;
 import cinema.service.TicketsService;
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Controller;
@@ -17,11 +18,13 @@ public class TicketsController {
     private final TicketsService ticketsService;
 
     private final FilmSessionsService filmSessionsService;
-    public TicketsController(TicketsService ticketsService, FilmSessionsService filmSessionsService) {
+
+    private final HallsService hallsService;
+    public TicketsController(TicketsService ticketsService, FilmSessionsService filmSessionsService, HallsService hallsService) {
         this.ticketsService = ticketsService;
         this.filmSessionsService = filmSessionsService;
+        this.hallsService = hallsService;
     }
-
 
     @PostMapping("/create")
     public String create(@ModelAttribute Tickets tickets, Model model) {
@@ -42,6 +45,12 @@ public class TicketsController {
             return "errors/404";
         }
         model.addAttribute("filmSessionDto", filmSession.get());
+        return "tickets/create";
+    }
+
+    @GetMapping("/create")
+    public String getCreationPage(Model model) {
+        model.addAttribute("halls", hallsService.findAll());
         return "tickets/create";
     }
 
