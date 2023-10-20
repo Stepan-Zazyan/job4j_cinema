@@ -2,6 +2,7 @@ package cinema.controller;
 
 
 import cinema.model.Tickets;
+import cinema.service.FilmSessionsService;
 import cinema.service.TicketsService;
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Controller;
@@ -15,8 +16,10 @@ public class TicketsController {
 
     private final TicketsService ticketsService;
 
-    public TicketsController(TicketsService ticketsService) {
+    private final FilmSessionsService filmSessionsService;
+    public TicketsController(TicketsService ticketsService, FilmSessionsService filmSessionsService) {
         this.ticketsService = ticketsService;
+        this.filmSessionsService = filmSessionsService;
     }
 
 
@@ -31,5 +34,15 @@ public class TicketsController {
         }
     }
 
+    @GetMapping("/{id}")
+    public String getById(Model model, @PathVariable int id) {
+        var filmSession = filmSessionsService.findDtoById(id);
+        if (filmSession.isEmpty()) {
+            model.addAttribute("message", "Сеанс с указанным идентификатором не найден");
+            return "errors/404";
+        }
+        model.addAttribute("filmSessionDto", filmSession.get());
+        return "tickets/create";
+    }
 
 }

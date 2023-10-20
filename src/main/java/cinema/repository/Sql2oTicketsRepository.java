@@ -1,6 +1,7 @@
 package cinema.repository;
 
 import cinema.model.Tickets;
+import cinema.model.Users;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Sql2o;
 

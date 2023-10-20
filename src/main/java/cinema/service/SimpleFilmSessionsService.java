@@ -1,14 +1,10 @@
 package cinema.service;
 
-import cinema.dto.FilmDto;
 import cinema.dto.FilmSessionsDto;
 import cinema.model.FilmSessions;
 import cinema.model.Films;
-import cinema.model.Genres;
 import cinema.model.Halls;
 import cinema.repository.FilmSessionsRepository;
-import cinema.repository.FilmsRepository;
-import cinema.repository.HallsRepository;
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Service;
 
@@ -45,7 +41,17 @@ public class SimpleFilmSessionsService implements FilmSessionsService {
 
     @Override
     public Optional<FilmSessions> findById(int id) {
-        return filmSessionsRepository.findById(id);
+        return
+                filmSessionsRepository.findById(id);
+    }
+
+    @Override
+    public Optional<FilmSessionsDto> findDtoById(int id) {
+        Optional<FilmSessions> filmSessions = filmSessionsRepository.findById(id);
+        Optional<Halls> hall = hallsService.findById(1);
+        Optional<Films> film = filmsService.findById(filmSessions.get().getFilmId());
+        return Optional.of(new FilmSessionsDto(filmSessions.get().getId(), film.get().getName(), hall.get().getName(),
+                filmSessions.get().getStartTime(), filmSessions.get().getEndTime(), filmSessions.get().getPrice()));
     }
 
     @Override
@@ -54,8 +60,8 @@ public class SimpleFilmSessionsService implements FilmSessionsService {
         List<FilmSessionsDto> filmSessionsDtoList = new ArrayList<>();
         Halls halls = hallsService.findById(1).get();
         for (FilmSessions filmSessions : filmSessionsList) {
-            Films films = filmsService.findById(filmSessions.getFilmId()).get();
-            filmSessionsDtoList.add(new FilmSessionsDto(filmSessions.getId(), films.getName(), halls.getName(),
+            Optional<Films> films = filmsService.findById(filmSessions.getFilmId());
+            filmSessionsDtoList.add(new FilmSessionsDto(filmSessions.getId(), films.get().getName(), halls.getName(),
                     filmSessions.getStartTime(), filmSessions.getEndTime(), filmSessions.getPrice()));
         }
         return filmSessionsDtoList;

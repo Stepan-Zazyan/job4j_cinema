@@ -27,8 +27,8 @@ public class UsersController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute Users user, Model model) {
-        var savedUser = userService.save(user);
+    public String register(@ModelAttribute Users users, Model model) {
+        var savedUser = userService.save(users);
         if (savedUser.isEmpty()) {
             model.addAttribute("message", "Пользователь с такой почтой уже существует");
             return "errors/404";
@@ -42,8 +42,8 @@ public class UsersController {
     }
 
     @PostMapping("/login")
-    public String loginUser(@ModelAttribute Users user, Model model, HttpServletRequest request) {
-        var userOptional = userService.findByEmailAndPassword(user.getEmail(), user.getPassword());
+    public String loginUser(@ModelAttribute Users users, Model model, HttpServletRequest request) {
+        var userOptional = userService.findByEmailAndPassword(users.getEmail(), users.getPassword());
         if (userOptional.isEmpty()) {
             model.addAttribute("error", "Почта или пароль введены неверно");
             return "users/login";

@@ -1,10 +1,10 @@
 <div th:fragment="header">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="/static">Job4jCinema</a>
+            <a class="navbar-brand" href="/">Job4jCinema</a>
             <div class="collapse navbar-collapse">
                 <div class="navbar-nav me-auto">
-                    <a class="nav-item nav-link" href="/static">Главная</a>
+                    <a class="nav-item nav-link" href="/">Главная</a>
                     <a class="nav-item nav-link active" th:href="@{/films}">Фильмы</a>
                     <a class="nav-item nav-link active" th:href="@{/filmSessions}">Киносеансы</a>
                     <a class="nav-item nav-link active" th:href="@{/tickets}">Покупка билетов</a>
@@ -14,7 +14,7 @@
                     <a class="nav-link text-secondary" th:href="@{/users/login}">Войти</a>
                 </div>
                 <div class="d-flex" th:if="${users.fullName != 'Гость'}">
-                    <a class="nav-link text-secondary me-3" href="#" th:text="${user.name}"></a>
+                    <a class="nav-link text-secondary me-3" href="#" th:text="${users.fullName}"></a>
                     <a class="nav-link text-secondary" th:href="@{/users/logout}">Выйти</a>
                 </div>
             </div>

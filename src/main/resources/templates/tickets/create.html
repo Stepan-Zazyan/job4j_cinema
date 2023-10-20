@@ -16,49 +16,15 @@
     <header th:insert="blocks/header :: header"></header>
     <div class="container">
         <form class="mt-3" th:action="@{/tickets/create}" method="post" enctype="multipart/form-data">
-                <div class="row">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Фильм</th>
-                            <th scope="col">Зал</th>
-                            <th scope="col">Время начала</th>
-                            <th scope="col">Время окончания</th>
-                            <th scope="col">цена</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="filmSession: ${filmSessions}">
-                            <td><a  th:text="${filmSession.id}"  th:href="@{/tickets/create{filmSessionId}(filmSessionId=${filmSession.id})}"></a></td>
-                            <td th:text="${filmSession.filmName}"/>
-                            <td th:text="${filmSession.hallsName}"/>
-                            <td th:text="${filmSession.startTime}"/>
-                            <td th:text="${filmSession.endTime}"/>
-                            <td th:text="${filmSession.price}"/>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-
+            <input type="hidden" name="id" th:field="*{filmSessionDto.id}">
             <div class="mb-3">
-                <label for="name" class="form-label"><b>Название</b></label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Напишите свою должность, например, Ведущий Java разработчик">
+                <label for="FilmName" class="form-label"><b>Название</b></label>
+                <input type="text" class="form-control" id="FilmName" name="FilmName" th:field="*{filmSessionDto.getFilmName()}" placeholder="Предлагая должность, например, Ведущий Java разработчик">
             </div>
             <div class="mb-3">
-                <label for="formFile"><b>Фото</b></label>
-                <input class="form-control form-control-sm w-100" type="file" id="formFile" name="file" required>
+                <label for="HallsName" class="form-label"><b>Описание</b></label>
+                <input type="text" class="form-control" id="HallsName" name="HallsName"  th:field="*{filmSessionDto.getHallsName()}" placeholder="Предлагая должность, например, Ведущий Java разработчик">
             </div>
-            <div class="mb-3">
-                <label for="description" class="form-label"><b>Описание</b></label>
-                <textarea class="form-control" id="description" name="description" rows="25" placeholder="Опишите свои навыки"></textarea>
-            </div>
-<!--            <div class="mb-3">
-                <label for="city"><b>Город</b></label>
-                <select class="form-control" id="city" name="cityId">
-                    <option th:each="city : ${cities}" th:value="${city.id}" th:text="${city.name}"></option>
-                </select>
-            </div>-->
             <div class="mb-3 row">
                 <div class="col-6"></div>
                 <div class="col-6">
@@ -69,6 +35,10 @@
                     </div>
                 </div>
             </div>
+        </form>
+    </div>
+</div>
+
         </form>
     </div>
     <footer th:insert="blocks/footer :: footer"></footer>
