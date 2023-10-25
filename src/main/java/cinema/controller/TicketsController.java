@@ -26,6 +26,12 @@ public class TicketsController {
         this.hallsService = hallsService;
     }
 
+    @GetMapping("/create")
+    public String getCreationPage(Model model) {
+        model.addAttribute("halls", hallsService.findAll());
+        return "tickets/create";
+    }
+
     @PostMapping("/create")
     public String create(@ModelAttribute Tickets tickets, Model model) {
         try {
@@ -50,10 +56,5 @@ public class TicketsController {
         return "tickets/create";
     }
 
-    @GetMapping("/create")
-    public String getCreationPage(Model model) {
-        model.addAttribute("halls", hallsService.findAll());
-        return "tickets/create";
-    }
 
 }

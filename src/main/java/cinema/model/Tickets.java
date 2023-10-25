@@ -19,6 +19,9 @@ public class Tickets {
     private int placeNumber;
     private int userId;
 
+    public Tickets() {
+    }
+
     public Tickets(int id, int sessionId, int rowNumber, int placeNumber, int userId) {
         this.id = id;
         this.sessionId = sessionId;
@@ -26,7 +29,6 @@ public class Tickets {
         this.placeNumber = placeNumber;
         this.userId = userId;
     }
-
 
     public int getId() {
         return id;

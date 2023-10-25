@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface TicketsService {
 
-    Optional<Tickets> save(Tickets film);
+    Tickets save(Tickets tickets);
 
     Collection<Tickets> findAll();
 }
