@@ -28,6 +28,11 @@ public class FilmsController {
         return "films/list";
     }
 
+    @GetMapping("/create")
+    public String getCreationPage() {
+        return "films/create";
+    }
+
     @PostMapping("/create")
     public String create(@ModelAttribute Films film, @RequestParam MultipartFile file, Model model) {
         try {
