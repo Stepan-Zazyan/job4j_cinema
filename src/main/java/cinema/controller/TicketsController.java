@@ -44,17 +44,17 @@ public class TicketsController {
     }
 
     @GetMapping("/create/{id}")
-    public String getById(Model model, @PathVariable int id) {
+    public String getById(Tickets tickets, Model model, @PathVariable int id) {
         var filmSession = filmSessionsService.findDtoById(id);
         if (filmSession.isEmpty()) {
             model.addAttribute("message", "Сеанс с указанным идентификатором не найден");
             return "errors/404";
         }
+        model.addAttribute("tickets", tickets);
         model.addAttribute("hallsPlaces", hallsService.findAll());
         model.addAttribute("hallsRowCount", hallsService.findAll());
         model.addAttribute("filmSessionDto", filmSession.get());
         return "tickets/create";
     }
-
 
 }
